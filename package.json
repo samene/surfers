@@ -1,0 +1,29 @@
+{
+  "name": "shark-detection-system",
+  "version": "1.0.0",
+  "description": "Real-time shark detection and alert system for surfers",
+  "scripts": {
+    "start": "docker-compose up",
+    "dev": "docker-compose up --build",
+    "stop": "docker-compose down",
+    "seed": "node scripts/seed-data.js",
+    "seed-drones": "node scripts/seed-drones.js",
+    "clear-data": "node scripts/clear-data.js",
+    "logs": "docker-compose logs -f",
+    "clean": "docker-compose down -v && docker system prune -f"
+  },
+  "keywords": [
+    "shark-detection",
+    "geofencing",
+    "iot",
+    "surfing",
+    "safety",
+    "microservices"
+  ],
+  "author": "Shark Detection Team",
+  "license": "MIT",
+  "devDependencies": {
+    "mongoose": "^7.5.0",
+    "dotenv": "^16.3.1"
+  }
+}

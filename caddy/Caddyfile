@@ -1,0 +1,43 @@
+# Caddyfile for Shark Detection System
+# Using Let's Encrypt SSL certificates
+
+surfers.it.com {
+    # TLS configuration with custom certificates
+    tls /etc/caddy/cert.pem /etc/caddy/key
+    encode zstd gzip
+    handle /api/* {
+      reverse_proxy localhost:8000 {
+        header_up Host {host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-For {remote}
+      }
+    }
+    handle {
+      reverse_proxy localhost:3000 {
+        header_up Host {host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-For {remote}
+      }
+    }
+    # Security headers
+    header {
+        # Security
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+        # Remove server header
+        -Server
+    }
+    
+    # Logging
+    log {
+        output file /var/log/caddy/surfers.access.log
+        format json
+    }
+
+}
+

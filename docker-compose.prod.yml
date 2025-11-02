@@ -1,0 +1,136 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data:/data/db
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  api-gateway:
+    build: ./services/api-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongodb
+      - redis
+      - user-service
+      - device-service
+      - geofence-service
+      - notification-service
+      - shark-detection-service
+      - drone-service
+
+  user-service:
+    build: ./services/user-service
+    ports:
+      - "8001:8001"
+    environment:
+      - NODE_ENV=production
+      - PORT=8001
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+    depends_on:
+      - mongodb
+
+  device-service:
+    build: ./services/device-service
+    ports:
+      - "8002:8002"
+    environment:
+      - NODE_ENV=production
+      - PORT=8002
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+    depends_on:
+      - mongodb
+
+  geofence-service:
+    build: ./services/geofence-service
+    ports:
+      - "8003:8003"
+    environment:
+      - NODE_ENV=production
+      - PORT=8003
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+    depends_on:
+      - mongodb
+
+  notification-service:
+    build: ./services/notification-service
+    ports:
+      - "8004:8004"
+    environment:
+      - NODE_ENV=production
+      - PORT=8004
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongodb
+      - redis
+
+  shark-detection-service:
+    build: ./services/shark-detection-service
+    ports:
+      - "8005:8005"
+    environment:
+      - NODE_ENV=production
+      - PORT=8005
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+    depends_on:
+      - mongodb
+
+  drone-service:
+    build: ./services/drone-service
+    ports:
+      - "8006:8006"
+    environment:
+      - NODE_ENV=production
+      - PORT=8006
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+    depends_on:
+      - mongodb
+
+  web-portal:
+    build:
+      context: ./frontend/web-portal
+      dockerfile: Dockerfile.production
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-https://surfers.it.com}
+        REACT_APP_GEOFENCE_SERVICE_URL: ${REACT_APP_GEOFENCE_SERVICE_URL:-http://geofence-service:8003}
+        REACT_APP_NOTIFICATION_SERVICE_URL: ${REACT_APP_NOTIFICATION_SERVICE_URL:-http://notification-service:8004}
+        REACT_APP_TELSTRA_API_HOST: ${REACT_APP_TELSTRA_API_HOST:-}
+        REACT_APP_TELSTRA_RAPIDAPI_HOST: ${REACT_APP_TELSTRA_RAPIDAPI_HOST:-}
+        REACT_APP_TELSTRA_RAPIDAPI_KEY: ${REACT_APP_TELSTRA_RAPIDAPI_KEY:-}
+    ports:
+      - "3000:80"
+    env_file:
+      - ./config/production.env
+    depends_on:
+      - api-gateway
+      - geofence-service
+      - notification-service
+
+  mobile-app:
+    image: nginx:alpine
+    ports:
+      - "3001:80"
+    volumes:
+      - ./frontend/mobile-app:/usr/share/nginx/html
+    depends_on:
+      - api-gateway
+
+volumes:
+  mongodb_data:
+

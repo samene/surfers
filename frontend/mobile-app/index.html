@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shark Alert - Mobile App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            border: 8px solid #333;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: relative;
+        }
+        .status-bar {
+            height: 44px;
+            background: #000;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+        }
+        .app-content {
+            height: calc(100% - 44px);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-y: auto;
+        }
+        .alert-card {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-8">
+    <div class="phone-frame mx-auto">
+        <div class="phone-screen">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>Shark Alert</span>
+                <span>100%</span>
+            </div>
+            <div class="app-content p-4">
+                <!-- Header -->
+                <div class="text-center text-white mb-6">
+                    <div class="text-2xl font-bold mb-2">🦈 Shark Alert</div>
+                    <div class="text-sm opacity-80">Real-time Safety Alerts</div>
+                </div>
+
+                <!-- Alert Card -->
+                <div id="alertCard" class="bg-red-500 text-white rounded-xl p-4 mb-4 alert-card hidden">
+                    <div class="flex items-center mb-2">
+                        <div class="text-2xl mr-3">⚠️</div>
+                        <div>
+                            <div class="font-bold text-lg">SHARK DETECTED!</div>
+                            <div class="text-sm opacity-90">High Alert Zone</div>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <div class="mb-1">📍 Bondi Beach</div>
+                        <div class="mb-1">🦈 Large White Shark</div>
+                        <div class="mb-1">📊 95% Confidence</div>
+                        <div class="text-xs opacity-80">Exit water immediately!</div>
+                    </div>
+                </div>
+
+                <!-- Status Cards -->
+                <div class="space-y-3 mb-6">
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-4 text-white">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold">Device Status</div>
+                                <div class="text-sm opacity-80">Apple Watch Series 9</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-green-400">● Online</div>
+                                <div class="text-sm">85% Battery</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-4 text-white">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold">Location</div>
+                                <div class="text-sm opacity-80">Bondi Beach</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-green-400">● Safe Zone</div>
+                                <div class="text-sm">500m radius</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-4 text-white">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold">Emergency Contact</div>
+                                <div class="text-sm opacity-80">Jane Smith</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm">+61 412 345 679</div>
+                                <div class="text-xs opacity-80">Spouse</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button onclick="simulateAlert()" class="bg-red-500 text-white rounded-xl p-4 text-center">
+                        <div class="text-2xl mb-1">🚨</div>
+                        <div class="text-sm font-semibold">Test Alert</div>
+                    </button>
+                    <button onclick="updateLocation()" class="bg-blue-500 text-white rounded-xl p-4 text-center">
+                        <div class="text-2xl mb-1">📍</div>
+                        <div class="text-sm font-semibold">Update Location</div>
+                    </button>
+                </div>
+
+                <!-- Recent Alerts -->
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-4 text-white">
+                    <div class="font-semibold mb-3">Recent Alerts</div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-sm">
+                            <span>🦈 Shark detected at Manly</span>
+                            <span class="opacity-80">2 min ago</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span>📍 Entered Bondi zone</span>
+                            <span class="opacity-80">15 min ago</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span>🔋 Battery low warning</span>
+                            <span class="opacity-80">1 hour ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center text-white text-xs mt-6 opacity-60">
+                    Shark Detection System v1.0
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // WebSocket connection for real-time alerts
+        const socket = io('http://localhost:8000');
+        
+        socket.on('connect', () => {
+            console.log('Connected to Shark Alert system');
+        });
+
+        socket.on('notification', (data) => {
+            showAlert(data);
+        });
+
+        function showAlert(alertData) {
+            const alertCard = document.getElementById('alertCard');
+            alertCard.classList.remove('hidden');
+            
+            // Auto-hide after 10 seconds
+            setTimeout(() => {
+                alertCard.classList.add('hidden');
+            }, 10000);
+        }
+
+        function simulateAlert() {
+            // Simulate receiving an alert
+            const mockAlert = {
+                title: '🦈 SHARK DETECTED!',
+                message: 'A large white shark has been detected near Bondi Beach. Please exit the water immediately!',
+                alertLevel: 'high',
+                location: 'Bondi Beach'
+            };
+            showAlert(mockAlert);
+        }
+
+        function updateLocation() {
+            // Simulate location update
+            alert('Location updated: -33.8915, 151.2767 (Bondi Beach)');
+        }
+
+        // Simulate periodic alerts for demo
+        setInterval(() => {
+            if (Math.random() < 0.1) { // 10% chance every 5 seconds
+                simulateAlert();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
