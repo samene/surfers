@@ -17,6 +17,18 @@
 
 ---
 
+<div align="center">
+
+### 🚀 **Live Demo Available**
+
+**Demo Site**: https://surfers.it.com
+
+*Username and password available on request*
+
+---
+
+</div>
+
 ## 🎯 Overview
 
 **Surfers.** is an **AI-powered** shark detection system leveraging **5G network slicing** and **CAMARA APIs** (Linux Foundation open source project) to provide proactive shark detection alerts to beachgoers. The system integrates **AI-driven drone surveillance** with **5G network capabilities** to enable surfers and other beach visitors to receive timely alerts when sharks are detected in their vicinity.
