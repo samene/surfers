@@ -248,7 +248,8 @@ Monitor all alert activity:
 
 - **Frontend**: React.js with Tailwind CSS
 - **Backend**: Node.js microservices
-- **Database**: MongoDB + Redis
+- **Database**: MongoDB
+- **Caching** (Optional/Future): Redis - Reserved for future features
 - **Real-Time**: WebSocket/Socket.io
 - **Maps**: React Leaflet + OpenStreetMap
 - **5G Integration**: Network Slicing

@@ -19,13 +19,13 @@
 
 ## 🎯 Overview
 
-**Surfers.** is a comprehensive IoT platform that integrates **Nokia CAMARA APIs**, **5G network slicing**, and **real-time geofencing** to provide proactive shark detection alerts to beachgoers. The system enables surfers and other beach visitors to receive timely alerts when sharks are detected in their vicinity through intelligent drone surveillance and advanced network capabilities.
+**Surfers.** is an **AI-powered** shark detection system leveraging **5G network slicing** and **CAMARA APIs** (Linux Foundation open source project) to provide proactive shark detection alerts to beachgoers. The system integrates **AI-driven drone surveillance** with **5G network capabilities** to enable surfers and other beach visitors to receive timely alerts when sharks are detected in their vicinity.
 
 ### Key Features
 
 ✨ **AI-Powered Detection** - Advanced drone surveillance with real-time shark detection  
 📡 **5G Network Slicing** - Ultra-low latency video streaming via dedicated network slices  
-📍 **Smart Geofencing** - Automatic location tracking via Nokia CAMARA Geofencing API  
+📍 **Smart Geofencing** - Automatic location tracking via CAMARA Geofencing API (Linux Foundation)  
 🚨 **Real-Time Alerts** - Instant push notifications based on proximity and geofence entry  
 🌐 **Multi-Device Support** - Smartwatch, phone, and fitness band compatibility  
 🗺️ **Interactive Maps** - Real-time visualization of beaches, geofences, and detections  
@@ -87,8 +87,9 @@
         ┌──────────────────────┼──────────────────────┐
         │                      │                      │
 ┌───────▼────────┐  ┌─────────▼──────────┐  ┌───────▼─────────┐
-│  Nokia CAMARA  │  │ CAMARA Location    │  │ Quality on Demand│
-│  Geofencing API│  │ Retrieval API      │  │  (5G Slice) API  │
+│  CAMARA        │  │ CAMARA Location    │  │ Quality on Demand│
+│  Geofencing    │  │ Retrieval API      │  │  (5G Slice) API  │
+│  API           │  │                   │  │                  │
 └────────────────┘  └────────────────────┘  └─────────────────┘
 ```
 
@@ -133,7 +134,7 @@ The system is built using a **microservices architecture** with 7 backend servic
 
 #### 📱 Device Service (Port 8002)
 - Device registration (smartwatch, phone, fitness band)
-- Nokia CAMARA Geofencing API integration
+- CAMARA Geofencing API integration (Linux Foundation open source project)
 - Device location tracking
 - Subscriber management (phone number, IMEI, IMSI)
 - Beach subscription management
@@ -172,7 +173,9 @@ The system is built using a **microservices architecture** with 7 backend servic
 
 ## 🔌 External API Integrations
 
-### Nokia CAMARA APIs
+### CAMARA APIs
+
+**CAMARA** (Common API Management and Real-time Analytics) is an open source project within the **Linux Foundation** that defines, develops, and tests APIs for Telco network capabilities exposed through APIs. The following CAMARA APIs are made available for this hackathon by **Telstra** in conjunction with **Nokia**:
 
 #### 1. **Geofencing Subscriptions API**
 - **Purpose**: Subscribe devices to geofence areas for automatic location tracking
@@ -326,6 +329,7 @@ The system is built using a **microservices architecture** with 7 backend servic
 - **Runtime**: Node.js with Express.js
 - **Database**: MongoDB (with Mongoose ODM)
 - **Message Queue**: Kafka (for asynchronous processing)
+- **Caching** (Optional/Future): Redis - Reserved for future features (caching, rate limiting, session storage)
 - **Real-time**: WebSocket (Socket.io)
 - **Authentication**: JWT (JSON Web Tokens)
 
@@ -337,7 +341,7 @@ The system is built using a **microservices architecture** with 7 backend servic
 - **Routing**: React Router
 
 ### External Integrations
-- **5G APIs**: Nokia CAMARA APIs
+- **5G APIs**: CAMARA APIs (Linux Foundation open source project, made available by Telstra in conjunction with Nokia)
   - Geofencing Subscriptions API
   - Location Retrieval API
   - Quality on Demand API (5G Network Slicing)
@@ -360,7 +364,7 @@ Administrators create beaches with coordinates and then create geofences around 
 When users subscribe to alerts for a beach:
 1. Mobile app sends registration with phone number and beach selection
 2. Backend retrieves all geofences for that beach
-3. For each geofence, backend calls Nokia CAMARA API to subscribe
+3. For each geofence, backend calls CAMARA API to subscribe
 4. CAMARA API monitors device location and sends callbacks on geofence entry/exit
 
 ### 3. New Beach/Geofence Notifications
@@ -397,7 +401,7 @@ All sensitive credentials are stored in environment files:
 **Required Configuration**:
 - MongoDB connection string
 - JWT secret keys
-- Nokia CAMARA API credentials
+- CAMARA API credentials (provided by Telstra)
 - Push notification service keys
 - Domain/IP settings
 
@@ -463,16 +467,19 @@ For questions, improvements, or issues:
 
 ## 📝 License
 
-This project was developed for demonstration purposes. See individual components for their respective licenses.
+This project was developed for a hackathon demonstration organized by **Telstra** in conjunction with **Nokia**, showcasing **AI-powered** shark detection leveraging **5G network slicing** and **CAMARA APIs** (Linux Foundation open source project). See individual components for their respective licenses.
 
 ---
 
 ## 🙏 Acknowledgments
 
-- **Nokia** for CAMARA API specifications
-- **Telstra** for 5G network slicing capabilities
-- **OpenStreetMap** for mapping services
-- **React & Node.js** communities for excellent frameworks
+This project was developed for a hackathon organized by **Telstra** in conjunction with **Nokia**.
+
+- **CAMARA Project** (Linux Foundation) - Open source project defining Telco network APIs
+- **Telstra** - Hackathon organizer and provider of CAMARA APIs access
+- **Nokia** - Co-organizer and collaborator in making CAMARA APIs available
+- **OpenStreetMap** - Mapping services
+- **React & Node.js** communities - Excellent frameworks
 
 ---
 

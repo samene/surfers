@@ -2,20 +2,21 @@
 
 ## 🎯 Project Overview
 
-A comprehensive MVP/POC for a real-time shark detection and alert system designed for surfers. This hackathon project demonstrates the integration of IoT devices, geofencing technology, drone surveillance, and real-time notifications to enhance beach safety.
+A comprehensive MVP/POC for a real-time shark detection and alert system designed for surfers. This hackathon project (organized by **Telstra** in conjunction with **Nokia**) demonstrates **AI-powered** shark detection leveraging **5G network slicing** and **CAMARA APIs** (Linux Foundation open source project) to enhance beach safety.
 
 ## 🏗️ Architecture & Technology Stack
 
 ### Microservices Architecture
 - **API Gateway** (Port 8000): Request routing and WebSocket management
 - **User Service** (Port 8001): Authentication and user management
-- **Device Service** (Port 8002): IoT device registration and tracking
+- **Device Service** (Port 8002): Device registration and tracking (mobile devices, smartwatches)
 - **Geofence Service** (Port 8003): Location-based zone management
 - **Notification Service** (Port 8004): Real-time alert broadcasting
 - **Shark Detection Service** (Port 8005): AI-powered detection simulation
 
 ### Technology Stack
-- **Backend**: Node.js, Express.js, MongoDB, Redis
+- **Backend**: Node.js, Express.js, MongoDB
+- **Caching** (Optional/Future): Redis - Reserved for future features (caching, rate limiting, session storage)
 - **Frontend**: React.js, Tailwind CSS, React Leaflet
 - **Real-time**: WebSocket, Socket.io
 - **Maps**: OpenStreetMap integration
@@ -30,9 +31,9 @@ A comprehensive MVP/POC for a real-time shark detection and alert system designe
 - Profile management
 - Beach subscription system
 
-### 2. **IoT Device Management**
-- Wearable device registration (smartwatches, fitness bands)
-- 5G SIM card integration
+### 2. **Device Management**
+- Device registration (smartwatches, fitness bands, mobile devices)
+- 5G network integration
 - Battery level monitoring
 - Online/offline status tracking
 - Device settings management
@@ -135,7 +136,7 @@ A comprehensive MVP/POC for a real-time shark detection and alert system designe
 ## 🎪 Hackathon Presentation Highlights
 
 ### Innovation Points
-1. **IoT + AI + Geofencing Integration**: Novel combination of technologies
+1. **AI + 5G + Geofencing Integration**: Novel combination of AI-powered detection with 5G network slicing and CAMARA APIs
 2. **Real-time Safety System**: Instant alert delivery to multiple devices
 3. **Microservices Architecture**: Scalable and maintainable design
 4. **Interactive Map Interface**: User-friendly geofence creation
@@ -211,7 +212,7 @@ npm run seed
 
 ## 🏆 Hackathon Impact
 
-This project demonstrates how modern technology can be leveraged to solve real-world safety challenges. The combination of IoT devices, AI detection, geofencing, and real-time notifications creates a comprehensive safety net for surfers while showcasing scalable microservices architecture suitable for production deployment.
+This project demonstrates how modern technology can be leveraged to solve real-world safety challenges. The combination of **AI-powered detection**, **5G network slicing**, **CAMARA APIs** (Linux Foundation), geofencing, and real-time notifications creates a comprehensive safety net for surfers while showcasing scalable microservices architecture suitable for production deployment.
 
 The system is ready for immediate demonstration and can be easily extended with additional features, integrations, and scaling capabilities for a full commercial product.
 

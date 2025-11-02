@@ -2,7 +2,7 @@
 
 ## 🎯 Hackathon Demo Overview
 
-This MVP demonstrates a real-time shark detection and alert system for surfers using IoT devices, geofencing, and drone surveillance.
+This MVP demonstrates an **AI-powered** shark detection and alert system for surfers leveraging **5G network slicing** and **CAMARA APIs** (Linux Foundation open source project, made available by Telstra in conjunction with Nokia). The system uses geofencing and AI-driven drone surveillance to provide real-time alerts.
 
 ## 🏗️ Architecture Highlights
 
@@ -15,7 +15,8 @@ This MVP demonstrates a real-time shark detection and alert system for surfers u
 - **Shark Detection Service**: Simulates drone detection and triggers alerts
 
 ### Technology Stack
-- **Backend**: Node.js, Express.js, MongoDB, Redis
+- **Backend**: Node.js, Express.js, MongoDB
+- **Caching** (Optional/Future): Redis - Reserved for future features (caching, rate limiting, session storage)
 - **Frontend**: React.js with Tailwind CSS
 - **Real-time**: WebSocket, Socket.io
 - **Maps**: React Leaflet with OpenStreetMap
@@ -125,8 +126,8 @@ npm run seed
 
 ## 🎯 Key Features Demonstrated
 
-### 1. **IoT Device Management**
-- Device registration with 5G SIM cards
+### 1. **Device Management**
+- Device registration with 5G network integration
 - Battery level monitoring
 - Online/offline status tracking
 - Beach subscription management
@@ -213,7 +214,7 @@ curl http://localhost:8000/health
 - Shark detection simulation
 
 ### 3. **Highlight Innovation**
-- IoT + AI + Geofencing combination
+- AI + 5G + Geofencing combination (AI-powered detection with 5G network slicing and CAMARA APIs)
 - Real-time notification system
 - Microservices scalability
 

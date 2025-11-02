@@ -11,6 +11,9 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+  # Redis - Optional/Future Use
+  # Currently configured but not actively used in the codebase.
+  # Reserved for future features: caching, rate limiting, session storage, pub/sub
   redis:
     image: redis:alpine
     ports:
@@ -23,10 +26,11 @@ services:
     environment:
       - NODE_ENV=production
       - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+      # REDIS_URL - Optional: Reserved for future caching/rate limiting features
       - REDIS_URL=redis://redis:6379
     depends_on:
       - mongodb
-      - redis
+      - redis  # Optional dependency for future use
       - user-service
       - device-service
       - geofence-service
@@ -75,10 +79,11 @@ services:
       - NODE_ENV=production
       - PORT=8004
       - MONGODB_URI=mongodb://admin:password@mongodb:27017/sharkdetection?authSource=admin
+      # REDIS_URL - Optional: Reserved for future pub/sub and caching features
       - REDIS_URL=redis://redis:6379
     depends_on:
       - mongodb
-      - redis
+      - redis  # Optional dependency for future use
 
   shark-detection-service:
     build: ./services/shark-detection-service

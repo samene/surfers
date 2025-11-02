@@ -435,6 +435,6 @@ API Gateway (Port 8000)
    ├── Shark Detection Service
    └── Drone Service
    ↓
-MongoDB (Port 27017) + Redis (Port 6379)
+MongoDB (Port 27017) + Redis (Port 6379, Optional/Future Use)
 ```
 

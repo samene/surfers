@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Shark Detection System is a comprehensive IoT platform that integrates Nokia CAMARA APIs, 5G network slicing, and real-time geofencing to provide proactive shark detection alerts to beachgoers. The system enables surfers and other beach visitors to receive timely alerts when sharks are detected in their vicinity.
+The Shark Detection System is an **AI-powered** shark detection system leveraging **5G network slicing** and **CAMARA APIs** (Linux Foundation open source project, made available by Telstra in conjunction with Nokia) to provide proactive shark detection alerts to beachgoers. The system integrates **AI-driven drone surveillance** with **5G network capabilities** to enable surfers and other beach visitors to receive timely alerts when sharks are detected in their vicinity.
 
 ## System Architecture Flow
 
@@ -80,7 +80,7 @@ sequenceDiagram
     participant DeviceService as Device Service
     participant UserService as User Service
     participant GeofenceService as Geofence Service
-    participant CAMARA as Nokia CAMARA API
+    participant CAMARA as CAMARA API
     participant DB as MongoDB
 
     User->>DeviceService: Register Device<br/>(phoneNumber, beachId, deviceInfo)
@@ -98,13 +98,13 @@ sequenceDiagram
     
     DeviceService-->>User: Registration Complete
     
-    Note over DeviceService,CAMARA: Mobile app subscribes to<br/>Nokia CAMARA geofencing API
+    Note over DeviceService,CAMARA: Mobile app subscribes to<br/>CAMARA geofencing API
 ```
 
 **Subscription Flow:**
 1. User registers device via mobile app with phone number and beach selection
 2. Backend retrieves all geofences associated with the selected beach
-3. For each geofence, the backend makes an API call to Nokia CAMARA Geofencing API with:
+3. For each geofence, the backend makes an API call to CAMARA Geofencing API with:
    - Device phone number
    - Geofence area (center point and radius)
    - Callback URL (backend endpoint)
@@ -151,7 +151,7 @@ When a subscriber enters a geofence area, CAMARA sends a callback to the backend
 ```mermaid
 sequenceDiagram
     participant User as User (Mobile Device)
-    participant CAMARA as Nokia CAMARA API
+    participant CAMARA as CAMARA API
     participant NotificationService as Notification Service<br/>(Callback Endpoint)
     participant GeofenceService as Geofence Service
     participant DB as MongoDB
@@ -268,7 +268,9 @@ graph LR
 
 ### API Integrations
 
-#### Nokia CAMARA APIs
+#### CAMARA APIs
+
+**CAMARA** (Common API Management and Real-time Analytics) is an open source project within the **Linux Foundation** that defines, develops, and tests APIs for Telco network capabilities exposed through APIs. The following CAMARA APIs are made available for this hackathon by **Telstra** in conjunction with **Nokia**:
 
 1. **Geofencing Subscriptions API**
    - **Endpoint**: `POST /subscriptions`
@@ -313,7 +315,7 @@ graph TD
     end
     
     subgraph "External"
-        CAMARA[Nokia CAMARA APIs]
+        CAMARA[CAMARA APIs<br/>Linux Foundation]
         Push[Push Notification Services]
     end
     
@@ -338,7 +340,7 @@ graph TD
 - **Database**: MongoDB
 - **Message Queue**: Kafka (for asynchronous processing)
 - **Real-time Communication**: WebSocket (Socket.io)
-- **External APIs**: Nokia CAMARA APIs
+- **External APIs**: CAMARA APIs (Linux Foundation open source project, made available by Telstra in conjunction with Nokia)
 - **Deployment**: Docker containers orchestrated via Docker Compose
 - **Reverse Proxy**: Caddy
 

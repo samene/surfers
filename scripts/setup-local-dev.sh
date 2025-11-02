@@ -37,6 +37,7 @@ if [ ! -f ./services/notification-service/.env ]; then
     cat > ./services/notification-service/.env << EOF
 PORT=8004
 MONGODB_URI=mongodb://localhost:27017/sharkdetection
+# REDIS_URL - Optional/Future Use: Reserved for caching, rate limiting, session storage
 REDIS_URL=redis://localhost:6379
 EOF
     echo "✅ Created .env file for notification service"
@@ -49,7 +50,7 @@ echo "🎉 Local development environment setup complete!"
 echo ""
 echo "To start the services locally:"
 echo "1. Start MongoDB: mongod"
-echo "2. Start Redis: redis-server"
+echo "2. Start Redis (Optional/Future Use): redis-server"
 echo "3. Start services:"
 echo "   - cd services/geofence-service && npm start"
 echo "   - cd services/notification-service && npm start"
